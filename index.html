@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arlan and the AI Map — AI Fundamentals Book</title>
+<style>
+:root{--bg:#f6f3ec;--fg:#1d2330;--mu:#5b6475;--ac:#c2410c;--cd:#fff;--bd:#e2dccd;--cb:#eee8d8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141d;--fg:#e8e6df;--mu:#9aa3b5;--ac:#fb923c;--cd:#181e2b;--bd:#2a3244;--cb:#0b0e15;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10141d;--fg:#e8e6df;--mu:#9aa3b5;--ac:#fb923c;--cd:#181e2b;--bd:#2a3244;--cb:#0b0e15;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.65 Georgia,"Times New Roman",serif}
+main{max-width:760px;margin:auto;padding:0 18px 60px}
+.cover{text-align:center;padding:56px 0 30px;border-bottom:2px solid var(--ac)}
+.cover .r{font-size:64px}.cover h1{font-size:2.2rem;margin:.2em 0}.cover p{color:var(--mu);margin:.3em 0}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:20px 0;font:14px system-ui,sans-serif}
+nav a{color:var(--fg);border:1px solid var(--bd);padding:4px 10px;border-radius:99px;text-decoration:none;background:var(--cd)}
+h2{font-size:1.6rem;margin:2.2em 0 .2em;color:var(--ac)}h3{margin:1.2em 0 .2em;font-size:1.1rem}
+.st{font-style:italic;color:var(--mu);border-left:3px solid var(--ac);padding-left:12px;margin:.6em 0}
+.box{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:10px 16px;margin:12px 0}
+code,pre{font-family:ui-monospace,Menlo,monospace;font-size:.88em}
+pre{background:var(--cb);padding:10px 14px;border-radius:8px;overflow-x:auto}
+.f{font-family:ui-monospace,Menlo,monospace;background:var(--cb);padding:2px 8px;border-radius:5px;display:inline-block;margin:2px 0}
+table{border-collapse:collapse;display:block;overflow-x:auto;font:15px system-ui,sans-serif}td,th{border:1px solid var(--bd);padding:4px 10px}
+input[type=range]{width:100%;accent-color:var(--ac)}.out{font:700 1.4rem system-ui;color:var(--ac)}
+details{background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;margin:8px 0}summary{cursor:pointer;font-weight:700}
+small{color:var(--mu)}
+:root{--bg:#eceff3;--fg:#0f172a;--mu:#64748b;--ac:#1a6fe0;--cd:#fff;--bd:#e5e9f0;--cb:#f1f4f9;--nv:#0a1230;--gd:#f5b94a}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--fg:#e8ecf5;--mu:#93a0b8;--ac:#5aa2ff;--cd:#141b30;--bd:#232c47;--cb:#0c1226;--nv:#050a1c}}
+:root[data-theme="dark"]{--bg:#0b1020;--fg:#e8ecf5;--mu:#93a0b8;--ac:#5aa2ff;--cd:#141b30;--bd:#232c47;--cb:#0c1226;--nv:#050a1c}
+body{font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px}
+.cover{background:linear-gradient(120deg,var(--nv),#12306b);color:#fff;border:0;border-radius:18px;text-align:left;padding:34px 30px;margin-top:18px}
+.cover::before{content:"AI FUNDAMENTALS · ENDTERM";color:#5aa2ff;font:700 13px system-ui}
+.cover h1{font-size:2.4rem;margin:.15em 0}.cover p,.cover small{color:#b9c6e4}.cover .r{font-size:40px}
+nav{display:block;font-size:15px}
+nav a{display:block;border:0;border-radius:10px;padding:9px 14px;margin:2px 0;background:transparent;color:var(--fg)}
+nav a:hover{background:var(--cb)}
+@media(min-width:1050px){nav{position:fixed;left:0;top:0;bottom:0;width:226px;margin:0;padding:22px 12px;background:var(--cd);border-right:1px solid var(--bd);overflow:auto;z-index:5}nav::before{content:"Contents";display:block;font:700 12px system-ui;color:var(--mu);text-transform:uppercase;padding:0 14px 8px}main{margin-left:250px;max-width:none;padding-right:34px}}
+@media(max-width:1049px){nav{display:flex;overflow-x:auto;flex-wrap:nowrap;white-space:nowrap}nav a{background:var(--cd);border:1px solid var(--bd)}}
+h2{color:var(--fg);margin:0 0 .3em;font-size:1.5rem}
+h2::before{content:attr(data-n);display:inline-block;background:var(--nv);color:#fff;border-radius:8px;padding:0 10px;margin-right:10px;font-size:1rem;line-height:1.7}
+.card{background:var(--cd);border-radius:16px;padding:22px 26px;margin:18px 0;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.st{background:var(--cb);border:0;border-radius:10px;padding:10px 14px;font-style:normal;color:var(--mu)}
+.key{background:var(--nv);color:#fff;border-radius:12px;padding:12px 16px;margin:12px 0}.key b{color:var(--gd)}
+.box{border:0;background:var(--cb)}.f{background:var(--cb);color:var(--ac);font-weight:600}
+th{background:var(--nv);color:#fff}td,th{border-color:var(--bd)}
+details{background:var(--cb);border:0}details[open]{border-left:3px solid var(--ac)}
+.out{color:var(--ac)}
+:root{--bg:#f4f3ee;--fg:#111;--mu:#5c5a50;--ac:#a16207;--cd:#fff;--bd:#e7e4d6;--cb:#f6f2dc;--nv:#0a0a0a;--gd:#facc15}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0a;--fg:#f5f5f0;--mu:#a8a69a;--ac:#facc15;--cd:#171717;--bd:#2c2c2c;--cb:#222;--nv:#000}}
+:root[data-theme="dark"]{--bg:#0a0a0a;--fg:#f5f5f0;--mu:#a8a69a;--ac:#facc15;--cd:#171717;--bd:#2c2c2c;--cb:#222;--nv:#000}
+.cover{background:linear-gradient(120deg,#000,#2b2300)}.cover::before{color:#facc15}.cover p,.cover small{color:#d8d5c4}
+h2::before{background:#facc15;color:#000}th{background:#facc15;color:#000}
+nav{background:#0a0a0a;border-radius:12px;padding:8px}nav a{color:#e8e6da;background:transparent;border:0}nav a:hover{background:#262200;color:#facc15}nav a.on{background:#facc15;color:#000;font-weight:700}
+@media(min-width:1050px){nav{border-radius:0;border-right:1px solid #262200;padding:22px 12px}nav::before{color:#facc15}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin:18px 0}
+.tile{display:block;background:var(--cd);border:2px solid var(--bd);border-radius:16px;padding:18px;text-decoration:none;color:var(--fg);transition:.15s}
+.tile:hover{border-color:#facc15;transform:translateY(-3px);box-shadow:0 6px 18px rgba(250,204,21,.25)}
+.tile span{display:inline-block;background:#000;color:#facc15;border-radius:8px;padding:0 11px;font-weight:800}.tile b{display:block;margin:8px 0 4px;font-size:1.1rem}.tile small{display:block;line-height:1.4}
+.pn{display:flex;justify-content:space-between;gap:10px;margin-top:24px;padding-top:14px;border-top:1px solid var(--bd)}
+.pn a{background:#facc15;color:#000;text-decoration:none;font-weight:700;padding:8px 16px;border-radius:10px}
+.key{background:#000}.key b{color:#facc15}
+details[open]{border-left-color:#facc15}
+:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--bg:#050a14;--fg:#e9edf5;--mu:#8d96a8;--ac:#f5b53d;--cd:#090e18;--bd:#2b313d;--cb:#0e1522;--nv:#000;--gd:#f5b53d;color-scheme:dark}
+body{font-family:"Exo 2",system-ui,sans-serif;background:radial-gradient(ellipse at 85% 0,#10243f,transparent 60%),var(--bg)}
+.card,.tile,details,.box,.fg{background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.3px);background-size:4px 4px}
+.cover{background:linear-gradient(120deg,#000,#0c1a2e);border-bottom:3px solid var(--ac);border-radius:0}.cover h1{text-transform:uppercase;letter-spacing:.06em}
+.cover::after{content:"";display:block;height:3px;width:120px;background:linear-gradient(90deg,#fff,var(--ac),transparent);margin-top:16px;animation:sl 2.6s ease-in-out infinite alternate}
+.card{border:1px solid var(--bd);border-bottom:3px solid #4a505c;border-radius:0;box-shadow:none;animation:rise .5s both}
+h2{text-transform:uppercase;letter-spacing:.06em;color:#fff}h2::before{background:var(--ac);color:#000;border-radius:2px}
+.st,.key,.box,details,pre,.f,input{border-radius:0}.st{border-left:3px solid var(--ac)}.key{border-left:3px solid var(--ac);animation:rise .6s .15s both}.key b{color:var(--ac)}
+th{background:var(--ac);color:#000}.f{color:var(--ac);background:#000}
+nav,nav a{border-radius:0}nav{background:#02050b}
+nav a{background-color:#0a0f18;border:0;border-bottom:2px solid #4a505c;text-transform:uppercase;letter-spacing:.05em;font-weight:600;font-size:13px;color:#aab2c0;transition:color .25s,border-color .25s}
+nav a:hover,nav a.on,.pn a:hover{background-image:linear-gradient(180deg,#aeb4be,#3b4250 45%,#04070d);color:var(--ac);text-shadow:0 1px 2px #000}
+nav a:hover,nav a.on{border-bottom-color:var(--ac)}nav a.on{background-color:#0a0f18}
+.tile{position:relative;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;border:0;border-bottom:3px solid #4a505c;border-radius:0;background-color:#070b14;animation:rise .5s both;transition:transform .3s,border-color .3s,box-shadow .3s}
+.tile::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#b9bec8,#434a58 40%,#04070d);opacity:0;transition:opacity .35s}
+.tile:hover::before{opacity:1}.tile:hover{border-bottom-color:var(--ac);transform:translateY(-4px);box-shadow:0 10px 24px rgba(245,181,61,.2)}
+.tile>*{position:relative}.tile span{position:absolute;top:14px;left:14px;background:#000;color:var(--ac);border-radius:0}
+.tile b{text-transform:uppercase;letter-spacing:.05em;transition:color .3s}.tile:hover b{color:var(--ac);text-shadow:0 1px 3px #000}.tile:hover small{color:#e6e9ef}
+.pn a{background-color:#0a0f18;color:#fff;border-radius:0;border-bottom:2px solid var(--ac);transition:.25s}
+input[type=range]{accent-color:var(--ac)}summary:hover{color:var(--ac)}
+.fg{border:1px solid var(--bd);margin:14px 0;padding:8px;background-color:#050a14}.fg svg{width:100%;height:auto;display:block}
+.fg text{fill:var(--fg);font:600 12px "Exo 2",system-ui;text-anchor:middle}.fg .t{fill:var(--ac)}.fg .k{fill:#000;font-size:15px}.fg .big{font-size:18px;fill:var(--ac)}
+.fg .n{fill:#050a14;stroke:var(--ac);stroke-width:2}.fg .d{stroke:#4a505c;stroke-width:2;fill:none}.fg .r{fill:#0e1522;stroke:#4a505c}
+.fg .e{stroke:var(--ac);stroke-width:3;fill:none;stroke-dasharray:6 5;animation:dash 1s linear infinite}
+.fg .pu{animation:pl 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.fg .bar{transform-box:fill-box;transform-origin:left;animation:gr 1.4s ease both}.fg .x{opacity:.35}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}@keyframes sl{to{width:100%}}@keyframes dash{to{stroke-dashoffset:-22}}@keyframes pl{50%{transform:scale(1.2)}}@keyframes gr{from{transform:scaleX(0)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><main>
+<header class="cover"><div class="r">🤖</div><h1>Arlan and the AI Map</h1>
+<p>A road-trip guide to AI Fundamentals</p>
+<p><small>Arlan the robot drives from Astana to Almaty. At every stage of the trip he needs a new AI tool. Author: add your name here.</small></p></header>
+<nav><a href="#start">- Home</a><a href="#c1">- Search</a><a href="#c2">- Local search</a><a href="#c3">- Games</a><a href="#c4">- Probability</a><a href="#c5">- HMM</a><a href="#c6">- MDP</a><a href="#c7">- Decisions &amp; ML</a><a href="#c8">- Unsupervised</a><a href="#gl">- Glossary</a></nav>
+
+<h2 id="c1">1. Search: BFS, DFS, UCS, A*</h2>
+<p class="st">Arlan studies the map of Kazakhstan: Astana, Karaganda, Balkhash, Almaty… which road should he take?</p>
+<h3>The idea</h3>
+<p>A search problem has four parts: <b>states</b> (cities), <b>actions with costs</b> (roads), a <b>start</b> (Astana) and a <b>goal test</b> (“is this Almaty?”). The answer is a <b>plan</b>: a list of actions. The computer builds a “what if” <b>search tree</b>, where every node is a whole path. The only real question is: <b>which waiting path (the frontier) do we expand next?</b></p>
+<table><tr><th>Algorithm</th><th>Expands</th><th>Data structure</th><th>Optimal?</th></tr>
+<tr><td>BFS</td><td>shallowest node</td><td>queue (FIFO)</td><td>fewest steps</td></tr>
+<tr><td>DFS</td><td>deepest node</td><td>stack (LIFO)</td><td>no</td></tr>
+<tr><td>UCS</td><td>lowest g(n)</td><td>priority queue</td><td>yes (costs ≥ 0)</td></tr>
+<tr><td>A*</td><td>lowest g(n)+h(n)</td><td>priority queue</td><td>yes, if h is admissible</td></tr></table>
+<h3>Why BFS can fail</h3>
+<div class="box">A→B costs 2, B→F costs 10, A→C costs 8, C→F costs 1. Both routes take 2 steps, but cost 12 and 9. BFS counts steps, so it cannot tell them apart. UCS adds up costs, so it can.</div>
+<h3>A*: UCS with a compass</h3>
+<p><span class="f">f(n) = g(n) + h(n)</span>: g is the cost already paid, h is a guess of the cost still to pay. A heuristic is <b>admissible</b> if it never overestimates: 0 ≤ h(n) ≤ h*(n). Then A* is optimal, because the best goal always looks cheaper than any wrong goal, so it is taken first. If h = 0, A* is exactly UCS. On grids, Manhattan distance is a typical h. A <b>visited set</b> stops endless loops in graphs with cycles.</p>
+<pre>heapq.heappush(pq, (g + h(nxt), g, nxt))   # A*: priority = f</pre>
+<p><b>Real use:</b> Google Maps, game AI, robot navigation, network routing.</p>
+
+<h3>In plain words</h3><p>Imagine searching a dark maze with a flashlight. <b>BFS</b> sweeps the light in widening rings, so the nearest places are checked first. <b>DFS</b> follows one corridor to its end, then backs up. <b>UCS</b> also watches the “fuel meter” (cost so far). <b>A*</b> adds a compass that points roughly toward Almaty, so it wastes less fuel on wrong turns. Trace on the code graph below: A→B (f=6) and A→C (f=7) are queued; B is expanded first, but later C→E→G wins with total cost 7, and A* returns it.</p><h3>A* step by step</h3><table><tr><th>Step</th><th>Take from queue (lowest f)</th><th>What happens</th></tr><tr><td>1</td><td>A (f=6)</td><td>push B (g=1, f=6) and C (g=4, f=7)</td></tr><tr><td>2</td><td>B (f=6)</td><td>push D (g=3, f=7) and E (g=6, f=8)</td></tr><tr><td>3</td><td>D (f=7)</td><td>tie with C, lower g goes first; push G (g=8, f=8)</td></tr><tr><td>4</td><td>C (f=7)</td><td>cheaper way to E found (g=5): push E (f=7)</td></tr><tr><td>5</td><td>E (g=5, f=7)</td><td>cheaper way to G found (g=7): push G (f=7)</td></tr><tr><td>6</td><td>G (f=7)</td><td>goal reached: A→C→E→G, cost 7</td></tr></table><h3>Try it in Python</h3><pre>import heapq
+graph = {"A":[("B",1),("C",4)], "B":[("D",2),("E",5)], "C":[("E",1)],
+         "D":[("G",5)], "E":[("G",2)], "G":[]}
+h = {"A":6, "B":5, "C":3, "D":4, "E":2, "G":0}   # heuristic
+
+def a_star(start, goal):
+    pq = [(h[start], 0, start, [start])]          # (f, g, node, path)
+    best = {start: 0}
+    while pq:
+        f, g, node, path = heapq.heappop(pq)      # smallest f first
+        if node == goal:
+            return g, path
+        for nxt, cost in graph[node]:
+            ng = g + cost
+            if ng &lt; best.get(nxt, float("inf")):  # found a cheaper way
+                best[nxt] = ng
+                heapq.heappush(pq, (ng + h[nxt], ng, nxt, path + [nxt]))
+
+print(a_star("A", "G"))   # (7, ['A', 'C', 'E', 'G'])</pre><div class="box"><b>Beyond the lecture:</b> A* was published in 1968 by Hart, Nilsson and Raphael at Stanford Research Institute, to plan routes for the robot Shakey.</div>
+<h2 id="c2">2. Local Search: when the path doesn’t matter</h2>
+<p class="st">In Almaty, Arlan must place 8 charging stations so they don’t block each other. Nobody cares how he got there, only about the final layout.</p>
+<h3>The idea</h3>
+<p>Keep one (or a few) complete solutions and improve them with small steps. Memory use is tiny. You need three things: a state, its neighbors, and a score to maximize.</p>
+<p><b>Hill climbing</b> always moves to the best neighbor and stops when none is better. On the landscape [1,3,5,8,6,4,2] starting at 0 it reaches 8. Traps: a <b>local maximum</b> (a small hill), a <b>plateau</b> (flat area), a <b>ridge</b>.</p>
+<h3>How to escape the traps</h3>
+<ul><li><b>Random restart:</b> start many times and keep the best result.</li>
+<li><b>Simulated annealing:</b> accept a worse move with probability <span class="f">exp(ΔE/T)</span>. T cools down (T ← 0.95·T): explore first, refine later. Cooling too fast freezes a bad answer.</li>
+<li><b>Local beam search:</b> keep K states, then pick the best K successors of all of them.</li>
+<li><b>Genetic algorithms:</b> population → selection by fitness → crossover → mutation.</li>
+<li><b>Gradient descent</b> (continuous problems): <span class="f">x ← x − α∇f(x)</span>.</li></ul>
+<p><b>Classic problems:</b> N-queens (score = number of conflicts) and the traveling salesman (neighbor = swap two cities).</p>
+
+<h3>In plain words</h3><p>Imagine you are hiking in thick fog. You can only see the ground around your feet, so you keep stepping uphill. Sooner or later you stand on a small hill and every step goes down, even though a taller mountain exists elsewhere. Simulated annealing fixes this by sometimes allowing a step downhill. Early on (hot) it does this often and explores; later (cool) it almost never does, and settles on a peak.</p><h3>Try it in Python</h3><pre>import math, random
+land = [1, 3, 5, 8, 6, 4, 2, 5, 9, 7]      # height at each position
+
+def anneal(x, T=3.0):
+    while T &gt; 0.01:
+        y = max(0, min(len(land) - 1, x + random.choice([-1, 1])))
+        dE = land[y] - land[x]
+        if dE &gt; 0 or random.random() &lt; math.exp(dE / T):
+            x = y                            # accept (sometimes even if worse)
+        T *= 0.95                            # cool down
+    return x
+
+print(land[anneal(0)])                       # often 9, the global peak</pre><div class="box"><b>Beyond the lecture:</b> Simulated annealing comes from Kirkpatrick, Gelatt and Vecchi (<i>Science</i>, 1983), inspired by slowly cooling hot metal. Genetic algorithms were popularized by John Holland (1975).</div>
+<h2 id="c3">3. Games: Minimax and Alpha–Beta</h2>
+<p class="st">On the road Arlan meets a rival robot. Now the environment is a player too.</p>
+<h3>The idea</h3>
+<p>In a two-player zero-sum game, MAX wants a high score and MIN wants a low one. Each assumes the other plays perfectly. A leaf has its utility, a MAX node takes the <b>max</b> of its children, a MIN node takes the <b>min</b>.</p>
+<div class="box"><b>Example:</b> leaves (3, 12, 8), (2, 4, 6), (14, 5, 2). MIN picks 3, 2, 2. MAX picks the best of those: <b>3</b>. The 14 never matters, because MIN would avoid that branch.</div>
+<h3>Faster: Alpha–Beta</h3>
+<p>Full search costs O(b<sup>m</sup>). Alpha–Beta tracks α (best guaranteed for MAX) and β (best guaranteed for MIN). If α ≥ β the remaining children can be skipped. The answer is the same as Minimax, only fewer nodes are visited, and good move ordering helps a lot.</p>
+<h3>Real games</h3>
+<p>Search to a limited depth and use an <b>evaluation function</b> Eval = w₁f₁ + … + wₙfₙ (pieces, position…). Danger: the <i>horizon effect</i>. If some moves are random (dice), use <b>Expectimax</b>: take the weighted average at chance nodes, e.g. ½·8 + ⅓·24 + ⅙·(−12) = 10.</p>
+
+<h3>In plain words</h3><p>Think of chess. You imagine your move, then the best reply of your opponent, then your best answer, and so on. You pick the move whose <i>worst case</i> is the best. That is Minimax. Alpha–Beta adds a shortcut: once you see that a branch is already worse than something you have, you stop looking at it.</p><h3>Try it in Python</h3><pre>def alphabeta(node, maximizing, alpha=-1e9, beta=1e9):
+    if isinstance(node, int):                # a leaf holds its utility
+        return node
+    best = -1e9 if maximizing else 1e9
+    for child in node:
+        v = alphabeta(child, not maximizing, alpha, beta)
+        if maximizing:
+            best = max(best, v); alpha = max(alpha, best)
+        else:
+            best = min(best, v); beta = min(beta, best)
+        if alpha &gt;= beta:                    # prune the remaining children
+            break
+    return best
+
+print(alphabeta([[3, 12, 8], [2, 4, 6], [14, 5, 2]], True))   # 3</pre><div class="box"><b>Beyond the lecture:</b> IBM’s Deep Blue beat world chess champion Garry Kasparov in 1997 using alpha–beta search at huge scale. AlphaGo (2016) beat Lee Sedol in Go by combining Monte Carlo tree search with neural networks.</div>
+<h2 id="c4">4. Probability and Bayesian Networks</h2>
+<p class="st">A smoke sensor in Karaganda goes off. Is it a fire, or just burnt tea?</p>
+<h3>The basics</h3>
+<p><b>Joint</b> P(A,B), <b>marginalization</b> (sum out what you don’t need), <b>conditional</b> <span class="f">P(A|B) = P(A,B) / P(B)</span>. Example: P(High,Failure)=0.18 and P(Failure)=0.18+0.02=0.20, so P(Failure|High)=0.18/0.30=0.60. <b>Bayes’ rule:</b> <span class="f">P(F|A) = P(A|F)·P(F) / P(A)</span>.</p>
+<div class="box"><b>Try it</b> (default = lecture example: 5%, 90%, 10% → 32.14%).<br>
+Share of faulty machines: <b id="v1">5</b>%<input id="p" type="range" min="1" max="50" value="5">
+Sensor sensitivity: <b id="v2">90</b>%<input id="s" type="range" min="50" max="100" value="90">
+False alarm rate: <b id="v3">10</b>%<input id="q" type="range" min="1" max="30" value="10">
+P(faulty | alarm) = <span class="out" id="o">32.14 %</span></div>
+<p>Why only 32%? Out of 1000 machines, 50 are faulty (45 alarms) and 950 are fine (95 false alarms). So 45 / 140. The <b>base rate</b> matters as much as sensor accuracy.</p>
+<h3>Bayesian networks</h3>
+<p>A directed acyclic graph with a probability table (CPT) per node: <span class="f">P(F,S,A) = P(F)·P(S|F)·P(A|S)</span>. For Fire→Smoke→Alarm: 0.02·0.90·0.95 = 0.0171. Inference by enumeration (smoke hidden): P(A|F)=0.856, P(A|¬F)=0.057, P(A)=0.07298, so P(F|A) = <b>23.46%</b>. <i>Variable elimination</i> gives the same answer more cheaply. <b>Sampling</b> gives approximate answers: rejection (throws away ≈93% of samples), likelihood weighting (weights instead of rejection), Gibbs (MCMC). <b>Explaining away:</b> finding another cause (earthquake) lowers the belief in the first (burglary). A sparse network stores O(n·d<sup>k</sup>) numbers instead of O(d<sup>n</sup>).</p>
+
+<h3>In plain words</h3><p>Imagine a medical test for a rare disease that is “90% accurate”. Most people are healthy, so even a small false-alarm rate produces many false positives. Out of everyone who tests positive, many are healthy. Bayes’ rule is simply the careful way of counting this: (true alarms) ÷ (true alarms + false alarms).</p><h3>Try it in Python</h3><pre>def posterior(prior, sensitivity, false_alarm):
+    true_alarms  = sensitivity * prior
+    false_alarms = false_alarm * (1 - prior)
+    return true_alarms / (true_alarms + false_alarms)
+
+print(round(posterior(0.05, 0.90, 0.10), 4))   # 0.3214</pre><div class="box"><b>Beyond the lecture:</b> The rule comes from Thomas Bayes, published after his death in 1763. Judea Pearl introduced Bayesian networks in the 1980s (<i>Probabilistic Reasoning in Intelligent Systems</i>, 1988).</div>
+<h2 id="c5">5. Hidden Markov Models</h2>
+<p class="st">Arlan’s motor is getting hot. Is it Healthy, Degrading or Faulty? He can’t see it, only sensors.</p>
+<h3>The idea</h3>
+<p>An HMM has two chains: <b>hidden states</b> X that change over time (transition table T) and <b>observations</b> E that each state emits (emission table O), plus a start distribution π. <b>Markov assumption:</b> <span class="f">P(X<sub>t+1</sub> | X<sub>t</sub>, …) = P(X<sub>t+1</sub> | X<sub>t</sub>)</span>: tomorrow depends only on today. Careful: P(High|Faulty)=0.7 is <i>not</i> P(Faulty|High).</p>
+<h3>Four questions you can ask</h3>
+<ul><li><b>Filtering (now?):</b> predict → observe → normalize. <span class="f">belief ∝ O(e)·Σ belief·T</span></li>
+<li><b>Prediction (future?):</b> p·T<sup>k</sup>, with no new readings.</li>
+<li><b>Smoothing (past?):</b> forward × backward messages use later evidence too.</li>
+<li><b>Viterbi (best path?):</b> like filtering but with <b>max</b> instead of sum, remembering the best predecessor.</li></ul>
+<div class="box"><b>Example.</b> Start [0.8, 0.2], T=[[0.9,0.1],[0.2,0.8]], O(High)=[0.2, 0.7]. After the first High: [0.16, 0.14] / 0.30 = [53.3%, 46.7%]. Second High: predict [0.573, 0.427], correct [0.115, 0.299], normalize → [27.7%, 72.3%]. Faulty is now more likely.</div>
+<p><b>Real use:</b> predictive maintenance, speech recognition, robot localization.</p>
+
+<h3>In plain words</h3><p>It is like guessing the weather outside a windowless room by watching whether visitors carry umbrellas. You never see the weather itself (the hidden state), only clues (the observations). After each new clue you do three steps: <b>predict</b> how the weather may have changed, <b>weigh</b> the clue, and <b>rescale</b> so the chances add up to 100%.</p><h3>Try it in Python</h3><pre>import numpy as np
+T = np.array([[.9, .1], [.2, .8]])        # transitions: Healthy, Faulty
+O = {"High": np.array([.2, .7])}          # P(High | Healthy), P(High | Faulty)
+belief = np.array([.8, .2])               # start belief
+
+for t in range(2):                        # two "High" readings in a row
+    if t &gt; 0:
+        belief = belief @ T               # 1. predict
+    belief = belief * O["High"]           # 2. weigh by the evidence
+    belief /= belief.sum()                # 3. normalize
+    print(t + 1, belief.round(3))         # [0.533 0.467] then [0.277 0.723]</pre><div class="box"><b>Beyond the lecture:</b> The Viterbi algorithm (1967) was invented for decoding noisy signals. Rabiner’s 1989 tutorial made HMMs the standard tool in speech recognition.</div>
+<h2 id="c6">6. MDP: decisions when moves are uncertain</h2>
+<p class="st">The road is icy: “go forward” doesn’t always work. Arlan needs a rule for every situation.</p>
+<h3>The idea</h3>
+<p>A Markov Decision Process = states S, actions A, transition probabilities T(s,a,s′), rewards R and a discount γ. Lecture grid: reach G (+5), avoid X (−5), each step costs −0.1. A move works with probability 0.8 and slips left or right with 0.1 each; walls mean “stay”.</p>
+<h3>How to solve it</h3>
+<p><span class="f">Q(s,a) = Σ T·[R + γV(s′)]</span>, <span class="f">V(s) = max<sub>a</sub> Q(s,a)</span>, <span class="f">π(s) = argmax<sub>a</sub> Q(s,a)</span>. Example: Q(H,UP) = 0.8·4.4 + 0.1·1.7 + 0.1·0.8 = 3.77.</p>
+<p><b>Value iteration:</b> start with V₀ = 0, compute V<sub>k+1</sub> only from the old V<sub>k</sub>, stop when the biggest change is below 0.001 (15 iterations in the lecture example). The value of the goal “spreads” outward cell by cell. A high γ (0.9) cares about the future; a low γ (0.2) only about what’s close.</p>
+<p><b>Key point:</b> a policy is not a route. It tells you what to do in <i>every</i> state, because outcomes are random.</p>
+
+<h3>In plain words</h3><p>Picture a robot on ice. Every cell has a number: “how good is it to stand here?” The goal cell is worth a lot, and that value flows backwards like water, so cells next to the goal become valuable, then their neighbors, and so on. Once every cell has a value, the best action is simply “step toward the neighbor with the best value”, allowing for the chance of slipping. The list of best actions is the policy.</p><h3>Try it in Python</h3><pre>gamma = 0.9
+# A tiny chain s0 -&gt; s1 -&gt; s2 (goal, reward +5).
+# Each move succeeds with probability 0.8, otherwise the robot stays.
+V = [0.0, 0.0, 5.0]
+for _ in range(50):                        # value iteration
+    V[1] = 0.8 * gamma * V[2] + 0.2 * gamma * V[1]
+    V[0] = 0.8 * gamma * V[1] + 0.2 * gamma * V[0]
+print([round(v, 2) for v in V])            # [3.85, 4.39, 5.0]</pre><div class="box"><b>Beyond the lecture:</b> The Bellman equation comes from Richard Bellman’s dynamic programming (1950s). Modern reinforcement learning, including game-playing agents, is built on MDPs.</div>
+<h2 id="c7">7. Rational Decisions and Classical ML</h2>
+<p class="st">The motor acts up. Keep driving, or stop for service?</p>
+<h3>Rational decisions</h3>
+<p>Rational means choosing well given what you knew <i>before</i> acting, not getting a lucky result. Rule: <span class="f">a* = argmax EU(a)</span>, with <span class="f">EU = Σ P(outcome|a)·U(outcome)</span>. Project A: 0.9·100 + 0.1·(−20) = 88. Project B: 0.6·200 + 0.4·(−50) = 100. The riskier B wins. Probability tells you what to believe, utility tells you what to do. Service threshold: act if <span class="f">p &gt; cost_service / cost_failure</span> = 2000 / 10000 = 20%.</p>
+<h3>Machine learning</h3>
+<p>Instead of writing rules, an algorithm learns ŷ = f<sub>θ</sub>(x) from data. Three families: <b>supervised</b> (labels), <b>unsupervised</b> (structure), <b>reinforcement</b> (rewards). <b>Regression</b> predicts a number (MSE, MAE, R²). <b>Classification</b> predicts a class or probability. Logistic regression: σ(z) = 1/(1+e<sup>−z</sup>), and the threshold τ is a policy choice, not a constant. A decision tree is easy to read but overfits; a random forest averages many trees.</p>
+<div class="box"><b>Metrics:</b> Recall = TP/(TP+FN), Precision = TP/(TP+FP). A model that always says “normal” has 98% accuracy when 2% of machines fail, but 0% recall. Risks: overfitting, data leakage, distribution shift, bad calibration.</div>
+
+<h3>In plain words</h3><p>Probability tells you <i>how likely</i> a failure is. Utility tells you <i>how much it hurts</i>. A rational choice multiplies the two and compares the totals. A cheap check that prevents a rare but expensive failure is often worth it. A free action that risks a frequent small loss may not be. Learned models (ML) just supply the probabilities; the decision still needs the costs.</p><h3>Try it in Python</h3><pre>def expected_utility(outcomes):            # list of (probability, utility)
+    return sum(p * u for p, u in outcomes)
+
+A = [(0.9, 100), (0.1, -20)]
+B = [(0.6, 200), (0.4, -50)]
+print(expected_utility(A), expected_utility(B))   # 88.0 100.0  -&gt; choose B</pre><div class="box"><b>Beyond the lecture:</b> Expected utility theory was formalized by von Neumann and Morgenstern (1944). Random forests were introduced by Leo Breiman in 2001.</div>
+<h2 id="c8">8. Unsupervised Learning: finding hidden structure</h2>
+<p class="st">Arlan has logs from 50 sensors and not a single label. What is hiding inside?</p>
+<ul><li><b>K-Means:</b> pick K centers → assign each point to the nearest → move centers to the mean → repeat. It minimizes inertia = Σ‖x−μ‖². Choose K with the elbow method, silhouette score and common sense (inertia always falls as K grows). Scale features first. Weak on odd shapes and outliers.</li>
+<li><b>DBSCAN:</b> a cluster is a dense region (eps, min_samples). Points are core, border or noise (−1). It finds crescents but struggles with mixed densities. Noise is not automatically a failure.</li>
+<li><b>Curse of dimensionality:</b> space grows exponentially (10<sup>10</sup> cells in 10D), data becomes sparse and distances lose meaning.</li>
+<li><b>PCA:</b> finds axes of maximum variance (PC1, PC2 are orthogonal). PCA(n_components=0.95) keeps ≈95% of the variance. Trade-off: compact vs interpretable.</li>
+<li><b>t-SNE / UMAP:</b> non-linear maps for exploring data. Don’t read distances between islands literally.</li>
+<li><b>Isolation Forest:</b> anomalies are isolated by random splits in fewer steps (short path). An anomaly is a candidate for an expert to check, not a verdict.</li></ul>
+<p><b>Workflow:</b> data → scale → PCA → clusters → validate → anomalies → expert.</p>
+
+<h3>In plain words</h3><p>Imagine pouring a mixed bag of coins on a table. Nobody tells you which is which, yet you can still sort them by size and color. Unsupervised learning does the same with data: it finds groups (K-Means, DBSCAN), makes many measurements easier to see (PCA), and points at the odd coin (Isolation Forest). A human expert then decides what the groups <i>mean</i>.</p><h3>Try it in Python</h3><pre>from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# data: a table with one row per machine and one column per sensor
+X = StandardScaler().fit_transform(data)       # put features on one scale
+km = KMeans(n_clusters=3, n_init=10).fit(X)
+print(km.labels_, km.inertia_)                 # cluster of each row, total cost</pre><div class="box"><b>Beyond the lecture:</b> K-Means goes back to Stuart Lloyd (1957, published 1982). DBSCAN was introduced in 1996 (Ester et al.), t-SNE in 2008 (van der Maaten and Hinton) and Isolation Forest in 2008 (Liu, Ting and Zhou).</div>
+<h2 id="gl">Glossary</h2>
+<p class="st">The key terms of the course in one line each.</p>
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>State / frontier</td><td>A situation of the problem / paths waiting to be expanded</td></tr>
+<tr><td>Heuristic h(n)</td><td>An estimate of the cost left to reach the goal</td></tr>
+<tr><td>Admissible</td><td>A heuristic that never overestimates</td></tr>
+<tr><td>Local maximum</td><td>A peak that is better than its neighbors but not the best</td></tr>
+<tr><td>Utility</td><td>A number saying how good an outcome is</td></tr>
+<tr><td>Prior / posterior</td><td>Belief before / after seeing evidence</td></tr>
+<tr><td>CPT</td><td>Conditional probability table of one network node</td></tr>
+<tr><td>Markov assumption</td><td>The next state depends only on the current one</td></tr>
+<tr><td>Emission</td><td>The chance of a reading given a hidden state</td></tr>
+<tr><td>Policy π(s)</td><td>The action to take in each state</td></tr>
+<tr><td>Discount γ</td><td>How much future rewards count (0–1)</td></tr>
+<tr><td>Overfitting</td><td>Memorizing training data and failing on new data</td></tr>
+<tr><td>Recall</td><td>Share of real positives that the model finds</td></tr>
+<tr><td>Inertia</td><td>K-Means cost: squared distance to cluster centers</td></tr></table>
+
+<p><small>Sources: course lectures; S. Russell &amp; P. Norvig, <i>Artificial Intelligence: A Modern Approach</i>; L. Rabiner, “A Tutorial on Hidden Markov Models” (1989); S. Kirkpatrick et al., <i>Science</i> (1983); scikit-learn documentation.</small></p>
+</main>
+<script>
+(function(){
+var K=['A* = UCS + a compass: always expand the path with the lowest g(n)+h(n).','When only the result matters, improve one solution with small steps and learn to escape traps.','Minimax = best move against the best reply; Alpha–Beta skips what cannot matter.','An alarm is not a diagnosis: the base rate matters. Bayes’ rule updates belief.','The state is hidden, so estimate it from noisy sensors: predict → observe → normalize.','A policy π(s) says what to do in every state when outcomes are random.','A model gives probabilities, a decision weighs the cost of errors: maximize expected utility.','No labels: find groups (K-Means, DBSCAN), compress (PCA), spot oddities (Isolation Forest).'];
+document.querySelectorAll('h2').forEach(function(h,i){var c=document.createElement('section');c.className='card';h.parentNode.insertBefore(c,h);h.setAttribute('data-n',i<8?i+1:['Aa','Q&A'][i-8]);if(i<8)h.textContent=h.textContent.replace(/^\d+\.\s*/,'');var n=h;while(n){var x=n.nextElementSibling;c.appendChild(n);if(!x||x.tagName==='H2'||x.tagName==='SCRIPT')break;n=x;}
+if(i<8){var k=document.createElement('div');k.className='key';k.innerHTML='<b>In short:</b> '+K[i];h.after(k);}c.id=h.id;h.removeAttribute('id');});
+var cv=document.querySelector('.cover'),nv=document.querySelector('nav'),tl=document.createElement('div'),cs=[].slice.call(document.querySelectorAll('section.card'));
+tl.className='tiles';nv.after(tl);
+cs.forEach(function(c,i){var h=c.querySelector('h2'),kk=c.querySelector('.key'),a=document.createElement('a');a.href='#'+c.id;a.className='tile';a.innerHTML='<span>'+h.getAttribute('data-n')+'</span><b>'+h.textContent+'</b><small>'+(kk?kk.textContent.replace('In short:',''):(c.querySelector('.st')||{textContent:''}).textContent)+'</small>';tl.appendChild(a);
+var pn=document.createElement('div');pn.className='pn';pn.innerHTML=(i?'<a href="#'+cs[i-1].id+'">← Back</a>':'<a href="#start">← Home</a>')+(cs[i+1]?'<a href="#'+cs[i+1].id+'">Next →</a>':'<a href="#start">Back to home</a>');c.appendChild(pn);});
+function route(){var id=location.hash.slice(1),f=cs.filter(function(c){return c.id===id})[0];cv.style.display=tl.style.display=f?'none':'';cs.forEach(function(c){c.style.display=c===f?'':'none'});[].forEach.call(nv.querySelectorAll('a'),function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+(f?id:'start'))});window.scrollTo(0,0);}
+function N(x,y,t,c){return `<circle class='n${c||''}' cx='${x}' cy='${y}' r='15'/><text x='${x}' y='${y+4}'>${t}</text>`}
+function T(x,y,t,c){return `<text class='${c||'t'}' x='${x}' y='${y}'>${t}</text>`}
+var LP='M10 125C50 125 60 60 100 70C140 80 150 110 190 95C240 70 255 25 295 30C335 35 355 100 370 125',L=[3,12,8,2,4,6,14,5,2],lx=[50,80,110,160,190,220,270,300,330],
+lv=lx.map(function(x,i){return `<rect class='r${i==4||i==5?' x':''}' x='${x-14}' y='118' width='28' height='22'/>`+T(x,134,L[i],i==4||i==5?'t x':'')}).join(''),
+ex=[['M50 50L50 96','X1'],['','']],
+S=[
+`<svg viewBox='0 0 380 140'><path class='d' d='M40 70L130 30L230 30L340 70M130 30L230 110'/><path class='e' d='M40 70L130 110L230 110L340 70'/>${N(40,70,'A',' pu')}${N(130,30,'B')}${N(130,110,'C')}${N(230,30,'D')}${N(230,110,'E')}${N(340,70,'G',' pu')}${T(85,42,1)}${T(75,102,4)}${T(180,22,2)}${T(190,64,5)}${T(180,126,1)}${T(292,40,5)}${T(292,102,2)}${T(190,138,'best path A→C→E→G, cost 7')}</svg>`,
+`<svg viewBox='0 0 380 140'><path class='d' d='${LP}'/><circle r='6' fill='#f5b53d'><animateMotion dur='6s' repeatCount='indefinite' path='${LP}'/></circle>${T(100,58,'local maximum')}${T(295,20,'global maximum')}${T(60,138,'start')}</svg>`,
+`<svg viewBox='0 0 380 158'><path class='d' d='M190 22L80 70M190 22L190 70M190 22L300 70M80 70L50 118M80 70L80 118M80 70L110 118M190 70L160 118M190 70L190 118M190 70L220 118M300 70L270 118M300 70L300 118M300 70L330 118'/><path class='e' d='M190 22L80 70L50 118'/>${lv}${N(190,22,3,' pu')}${N(80,70,3)}${N(190,70,2)}${N(300,70,2)}${T(36,26,'MAX')}${T(36,74,'MIN')}${T(190,154,'gray leaves: skipped by Alpha–Beta')}</svg>`,
+`<svg viewBox='0 0 380 150'><path class='e' d='M64 38L136 38M164 38L236 38M264 38L336 38'/><path class='d' d='M50 53L50 96M150 53L150 96M250 53L250 96M350 53L350 96'/>${[50,150,250,350].map(function(x,i){return N(x,38,'X'+(i+1))+`<rect class='r' x='${x-18}' y='96' width='36' height='28'/>`+T(x,114,'E'+(i+1),'')}).join('')}${T(190,14,'hidden states — transitions T')}${T(190,144,'observations — emissions O')}</svg>`,
+`<svg viewBox='0 0 380 160'>${['→→→G','↑#↑X','→→↑←'].map(function(s,r){return s.split('').map(function(ch,c){var g=ch=='G',xx=ch=='X',w=ch=='#';return `<rect class='${g?'pu':'r'}' x='${86+c*52}' y='${8+r*46}' width='50' height='44' fill='${g?'#f5b53d':xx?'#3a1010':w?'#222':''}'/>`+T(111+c*52,38+r*46,g?'+5':xx?'−5':w?'':ch,g?'k':'big')}).join('')}).join('')}${T(44,134,'start')}${T(190,158,'policy π(s): one action per cell')}</svg>`,
+`<svg viewBox='0 0 380 120'><path class='e' d='M85 50L175 50M205 50L295 50'/>${N(70,50,'F',' pu')}${N(190,50,'S')}${N(310,50,'A')}${T(70,90,'P(F)=0,02')}${T(190,90,'P(S|F)=0,90')}${T(310,90,'P(A|S)=0,95')}${T(190,114,'Fire → Smoke → Alarm')}</svg>`,
+`<svg viewBox='0 0 380 120'><rect class='bar' x='60' y='18' width='229' height='26' fill='#4a505c'/><rect class='bar' x='60' y='58' width='260' height='26' fill='#f5b53d'/>${T(36,36,'A','')}${T(36,76,'B','')}${T(309,36,88,'')}${T(341,76,100,'')}${T(190,110,'expected utility EU: choose B')}</svg>`,
+`<svg viewBox='0 0 380 140'>${[[70,50],[95,45],[110,65],[80,80],[100,90],[65,70]].map(function(p){return `<circle cx='${p[0]}' cy='${p[1]}' r='5' fill='#f5b53d'/>`}).join('')}${[[260,55],[285,45],[300,70],[270,90],[295,95],[250,75]].map(function(p){return `<circle cx='${p[0]}' cy='${p[1]}' r='5' fill='#e9edf5'/>`}).join('')}<circle cx='185' cy='25' r='5' fill='#8d96a8'/><circle cx='190' cy='115' r='5' fill='#8d96a8'/><circle class='n pu' cx='86' cy='67' r='10' fill='none'/><circle class='n pu' cx='277' cy='72' r='10' fill='none'/>${T(90,125,'cluster 1')}${T(280,125,'cluster 2')}${T(232,28,'noise / anomaly')}</svg>`];
+cs.forEach(function(c,i){if(i<8){var d=document.createElement('div');d.className='fg';d.innerHTML=S[i];c.querySelector('.key').after(d);}});
+[].forEach.call(tl.children,function(a,i){a.style.animationDelay=i*60+'ms'});
+window.addEventListener('hashchange',route);route();
+var p=document.getElementById('p'),s=document.getElementById('s'),q=document.getElementById('q');
+function u(){var a=p.value/100,b=s.value/100,c=q.value/100,r=b*a/(b*a+c*(1-a));
+document.getElementById('v1').textContent=p.value;document.getElementById('v2').textContent=s.value;document.getElementById('v3').textContent=q.value;
+document.getElementById('o').textContent=(r*100).toFixed(2)+' %';}
+[p,s,q].forEach(function(e){e.addEventListener('input',u)});u();
+})();
+</script></body></html>
